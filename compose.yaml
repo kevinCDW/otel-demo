@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   grafana:
-    image: grafana/grafana-enterprise
+    image: grafana/grafana-enterprise:10.2.4
     container_name: grafana
     restart: unless-stopped
     ports:
@@ -32,12 +32,19 @@ services:
     command: "--config /etc/otel-config.yaml"
     volumes:
       - ./otel-config.yaml:/etc/otel-config.yaml
-  hotrod:
-    image: jaegertracing/example-hotrod:latest
+  flask:
+    image: simple-flask-calc
+    build: ./simple-test
     ports:
-      - "8080:8080"
-    command: ["all"]
-    environment:
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4318
-      - OTEL_EXPORTER_OTLP_INSECURE=true
+      - "5000:5000"
+      
+      
+  #hotrod:
+    #image: jaegertracing/example-hotrod:latest
+    #ports:
+      #- "8080:8080"
+    #command: ["all"]
+    #environment:
+      #- OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4318
+      #- OTEL_EXPORTER_OTLP_INSECURE=true
     

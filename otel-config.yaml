@@ -12,14 +12,15 @@ exporters:
    endpoint: http://tempo:4318
    tls:
      insecure: true
- otlphttp/logs:
-   endpoint: http://loki:3100/otlp
-   tls:
-     insecure: true
+ loki/logs:
+   endpoint: http://loki:3100/loki/api/v1/push
  prometheusremotewrite/metrics:
    endpoint: http://mirmir:9009/api/v1/push
 
 service:
+ telemetry:
+   logs:
+     level: "info"
  pipelines:
    traces:
      receivers: [otlp]
@@ -28,7 +29,7 @@ service:
    logs:
      receivers: [otlp]
      processors: [batch]
-     exporters: [otlphttp/logs]
+     exporters: [loki/logs]
    metrics:
      receivers: [otlp]
      processors: [batch]
