@@ -16,4 +16,5 @@ ENV OTEL_LOGS_EXPORTER=otlp
 ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://collector:4318
 ENV OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 ENV OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+ENV OTEL_RESOURCE_ATTRIBUTES=service.name=simple-calculator
 CMD ["poetry", "run", "opentelemetry-instrument", "flask", "--app", "server", "run", "--host", "0.0.0.0"]
