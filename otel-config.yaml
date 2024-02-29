@@ -15,7 +15,11 @@ exporters:
  loki/logs:
    endpoint: http://loki:3100/loki/api/v1/push
  prometheusremotewrite/metrics:
-   endpoint: http://mirmir:9009/api/v1/push
+   endpoint: http://mimir:9009/api/v1/push
+   tls:
+     insecure: true
+ debug:
+   
 
 service:
  telemetry:
@@ -25,12 +29,12 @@ service:
    traces:
      receivers: [otlp]
      processors: [batch]
-     exporters: [otlphttp/traces]
+     exporters: [debug, otlphttp/traces]
    logs:
      receivers: [otlp]
      processors: [batch]
-     exporters: [loki/logs]
+     exporters: [debug, loki/logs]
    metrics:
      receivers: [otlp]
      processors: [batch]
-     exporters: [prometheusremotewrite/metrics]
+     exporters: [debug, prometheusremotewrite/metrics]
