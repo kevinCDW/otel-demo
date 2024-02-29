@@ -34,7 +34,9 @@ services:
       - ./otel-config.yaml:/etc/otel-config.yaml
   flask:
     image: simple-flask-calc
-    build: ./simple-test
+    build: 
+      context: ./simple-test
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
     
